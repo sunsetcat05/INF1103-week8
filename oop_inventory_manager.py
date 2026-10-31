@@ -77,13 +77,18 @@ def load_inventory(inventory):
         with open(FILENAME, "r") as file:
             data = json.load(file)
         items = data["inventory"] if isinstance(data, dict) else data
-        for item in items:
-            inventory.add_product(
-                Product(item["id"], item["name"], item["price"], item["stock"])
-            )
+        products = [
+            Product(item["id"], item["name"], item["price"], item["stock"])
+            for item in items
+        ]
+        for product in products:
+            inventory.add_product(product)
         print("Inventory loaded successfully.")
     except FileNotFoundError:
         print("Inventory file not found. Starting with default products.")
+        load_default_products(inventory)
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError):
+        print("Inventory file is empty or invalid. Starting with default products.")
         load_default_products(inventory)
 
 
