@@ -1,70 +1,8 @@
 import json
+from Product import Product
+from Inventory import Inventory
 
 FILENAME = "inventory.json"
-
-
-class Product:
-    def __init__(self, product_id, name, price, stock):
-        if price < 0:
-            raise ValueError("Price cannot be negative.")
-        self.__product_id = product_id
-        self.__name = name
-        self.__price = price
-        self.update_stock(stock)   # reuses the stock validation
-
-    def get_id(self):
-        return self.__product_id
-
-    def get_name(self):
-        return self.__name
-
-    def get_stock(self):
-        return self.__stock
-
-    def update_stock(self, quantity):
-        if quantity < 0:
-            raise ValueError("Stock cannot be negative.")
-        self.__stock = quantity
-
-    def display_information(self):
-        print(f"ID: {self.__product_id} | Name: {self.__name} | "
-              f"Price: ${self.__price:.2f} | Stock: {self.__stock}")
-
-    def to_dict(self):
-        return {
-            "id": self.__product_id,
-            "name": self.__name,
-            "price": self.__price,
-            "stock": self.__stock,
-        }
-
-class Inventory:
-    def __init__(self):
-        self.__products = []
-
-    def add_product(self, product):
-        if self.search_product(product.get_id()) is not None:
-            raise ValueError(f"Product ID {product.get_id()} already exists.")
-        self.__products.append(product)
-
-    def search_product(self, product_id):
-        for product in self.__products:
-            if product.get_id() == product_id:
-                return product
-        return None
-
-    def display_all(self):
-        print("\nCurrent Inventory")
-        print("-" * 50)
-        if not self.__products:
-            print("No products in inventory.")
-        for product in self.__products:
-            product.display_information()
-        print("-" * 50)
-
-    def to_list(self):
-        return [product.to_dict() for product in self.__products]
-
 
 def load_default_products(inventory):
     inventory.add_product(Product("P001", "Laptop", 1200.00, 15))
@@ -131,7 +69,6 @@ def handle_search(inventory):
     else:
         print("\nProduct Found")
         product.display_information()
-
 
 def main():
     inventory = Inventory()
