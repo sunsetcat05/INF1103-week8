@@ -1,0 +1,10 @@
+[
+    {
+        "product_id": "P001",
+        "name": "KeyBoard",
+        "price": 20.0,
+        "stock_quantity": 20,
+        "type": "physical",
+        "weight": 1.4
+    }
+]
