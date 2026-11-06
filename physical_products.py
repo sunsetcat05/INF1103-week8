@@ -40,6 +40,11 @@ class PhysicalProduct(Product, CanBeShipped):
         data["type"] = self.PRODUCT_TYPE
         data["weight"] = self._weight
         return data
+    
+    def to_report_dict(self):
+        data = super().to_report_dict()
+        data["shipping_cost"] = self.calculate_shipping_cost()
+        return data
 
     @classmethod
     def from_dict(cls, data):
