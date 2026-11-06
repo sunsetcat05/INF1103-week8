@@ -97,6 +97,12 @@ def save_inventory(inventory):
     inventory.save_to_file()
     print(f"Saved {len(inventory)} product(s) to {DATA_FILE}.")
 
+def export_report(inventory):
+    count = inventory.export_report()
+    print(f"Exported {count} product(s) to inventory_report.json.")
+
+    
+
 
 def load_inventory(inventory):
     try:
@@ -131,7 +137,8 @@ def main():
         elif choice == "7":
             if input("Save before exiting? (y/n): ").strip().lower() == "y":
                 save_inventory(inventory)
-            print("Goodbye!")
+            print("Thank you for using the Inventory Management System.")
+            print("Program Terminated.")
             break
         else:
             print("Invalid option, please choose 1-7.")
