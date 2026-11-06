@@ -59,6 +59,14 @@ class Inventory:
         with open(filename, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4)
 
+    def export_report(self, filename="inventory_report.json"):
+        """Write a report of all products to a JSON file.
+        Returns the number of products exported."""
+        data = [p.to_report_dict() for p in self._products.values()]
+        with open(filename, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+        return len(data)
+
     def load_from_file(self, filename=DATA_FILE):
         """Replace the current contents with the saved inventory.
         Returns the number of products loaded."""
