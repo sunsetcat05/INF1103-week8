@@ -54,6 +54,11 @@ class Product(ABC):
             "price": self._price,
             "stock_quantity": self._stock_quantity,
         }
+    def to_report_dict(self):
+        """Saved fields plus computed information, for exported reports."""
+        data = self.to_dict()
+        data["fulfilment_info"] = self.get_fulfilment_info()
+        return data
 
     @abstractmethod
     def get_fulfilment_info(self):
